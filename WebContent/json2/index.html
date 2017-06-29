@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+
+	<h2>从json生成页面</h2>
+
+
+	<body>
+		<p>获取到了json数据（保存到本地 xxx.json）, 使用jQeury生成了HTML表格页面进行展示</p>
+
+		<table id="news" border="1">
+			<tbody></tbody>
+		</table>
+	</body>
+	<script>
+		 //不支持：远端json数据（ 从安全设计的角度，所有跨站请求（静态，动态都不被浏览器支持）
+		 //除非采用jsonp协议： 参考： “说说JSON和JSONP，也许你会豁然开朗”
+		 //jsonp 可用的方式在于 所有的 src= 是可以跨站的。
+		 //http://api.flickr.com/services/feeds/photos_public.gne?tags=cat&tagmode=any&format=json&jsoncallback=?
+		 //
+		 //		var url ="http://c.m.163.com/nc/article/headline/T1348647853363/0-20.html"
+		 //支持：本地json数据
+		 //		$.ajax({
+		 //			url: url,
+		 //			cache: false,
+		 //			dataType: 'json',
+		 //			success: function(data) {
+		 //				if (data.msg == "true") {
+		 //					// view("修改成功！");
+		 //					alert("修改成功！");
+		 //					window.location.reload();
+		 //				} else {
+		 //					//view(data.msg);
+		 //				}
+		 //				console.log(data)
+		 //				console.log("debug: ajax success")
+		 //
+		 //			},
+		 //			error: function() {
+		 //				// view("异常！");
+		 //				console.log("remote ajax 异常！");
+		 //			}
+		 //		});
+		 //
+		 //本地请求（不跨站）
+		 var url = "http://localhost:8080/ShiyanlouPhoto/JsonDoubanAction";
+		 //var url = "JsonDoubanAction.json";
+		 //.getJSON() 相当于简写的 .ajax()
+		 $.getJSON(url, function(data) {
+		 			var tbl_body = "";
+		 			var odd_even = false;
+					var count = 0;
+		 			// $.each(data, function() { // 从对象遍历到数组遍历
+		 		  for (var i = 0; i< data.length; i++) {
+					var tbl_row = "";
+		 				//$.each(this, function(k, v) {
+
+		 					v = data[i];
+
+		 					tbl_row ="";
+		 					tbl_row += "<td>" + count +" " + v.title + "</td>";
+		 					tbl_row += "<td>" + v.year + "</td>";
+		 					tbl_row += "<td>" + v.original_title + "</td>";
+		 					tbl_row += "<td> <img height=120 width=90 src=" + v.images.small + "></td>";
+		 					tbl_body += "<tr class=\"" + (odd_even ? "odd" : "even") + "\">" + tbl_row + "</tr>";
+		 					odd_even = !odd_even;
+		 					console.log(count , v);
+							count ++;
+					}
+
+		 			$("#news tbody").html(tbl_body);
+		 		});
+	</script>
+
+</html>
