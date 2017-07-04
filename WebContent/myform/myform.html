@@ -8,5 +8,45 @@
     <input type=submit>
   </form>
   
+  <p> 这个部分用于演示Chrome调试 </p>
+  参考 Source: <a target=_blank href="http://www.css88.com/doc/chrome-devtools/" >Chrome浏览器调试(新): </a>
+  <script>
+  function test_func1(){ // 测试 Call stack
+    console.log("this is a test function 1")
+    test_func2();
+  }
+  function test_func2(){ // 测试 Call stack
+    console.log("this is a test function 2")
+  }
+  var a = 4;
+  var b = 3;
+  console.log("hello console1");
+  console.log("hello console2");
+  ++ a ;
+  test_func1();
+  
+  // Watch 检测 KeyUp值:  a.keyCode
+  
+  // 显示重复的 log 信息
+  for (var i=0; i< 10; i++){
+    if (i % 5 === 0){
+      console.warn('Hey (duplicated logs)');
+    } else {
+      console.log('Hi (duplicated logs)')
+    }
+  }
+  
+  // 启动 Performace 计时器 (原 timelime)
+  console.time("Array initialize");
+// var array= new Array(1000000);
+// for (var i = array.length - 1; i >= 0; i--) {
+//     array[i] = new Object();
+// };
+console.timeEnd("Array initialize");
+
+// 使用断言进行调试
+console.assert( a != b)
+
+  </script>
 </body>
 </html>
