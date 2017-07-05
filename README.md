@@ -5,6 +5,7 @@
 ## 开发环境
 * Java SE Development Kit 8 Downloads:   http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
 * Java开发工具: 基于Eclipse 的 STS (自带 tomcat) 或者 NetBeans (自带 tomcat) https://spring.io/tools/sts
+* 浏览器调试工具: Chrome 浏览器
 * 页面开发工具: Atom + LiveServer https://atom.io/
 * 版本管理: Github Desktop https://desktop.github.com/
 * (可选) tomcat8 https://tomcat.apache.org/download-80.cgi
