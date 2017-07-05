@@ -11,51 +11,35 @@
 
 
 	<body>
-		<p>获取到了json数据（保存到本地 xxx.json）, 使用jQeury生成了HTML表格页面进行展示</p>
+		<p>获取到了json数据（远程API 或 本地 xxx.json）, 使用jQeury生成了HTML表格页面进行展示</p>
 
+		如果从远端API 接口加载数据, 其加载时间会稍慢一些, 约2-4秒之间
 		<table id="news" border="1">
 			<tbody></tbody>
 		</table>
 	</body>
 	<script>
-		 //不支持：远端json数据（ 从安全设计的角度，所有跨站请求（静态，动态都不被浏览器支持）
-		 //除非采用jsonp协议： 参考： “说说JSON和JSONP，也许你会豁然开朗”
-		 //jsonp 可用的方式在于 所有的 src= 是可以跨站的。
-		 //http://api.flickr.com/services/feeds/photos_public.gne?tags=cat&tagmode=any&format=json&jsoncallback=?
-		 //
-		 //		var url ="http://c.m.163.com/nc/article/headline/T1348647853363/0-20.html"
-		 //支持：本地json数据
-		 //		$.ajax({
-		 //			url: url,
-		 //			cache: false,
-		 //			dataType: 'json',
-		 //			success: function(data) {
-		 //				if (data.msg == "true") {
-		 //					// view("修改成功！");
-		 //					alert("修改成功！");
-		 //					window.location.reload();
-		 //				} else {
-		 //					//view(data.msg);
-		 //				}
-		 //				console.log(data)
-		 //				console.log("debug: ajax success")
-		 //
-		 //			},
-		 //			error: function() {
-		 //				// view("异常！");
-		 //				console.log("remote ajax 异常！");
-		 //			}
-		 //		});
-		 //
-		 //本地请求（不跨站）
-		 var url = "http://localhost:8080/ShiyanlouPhoto/JsonDoubanAction";
-		 //var url = "JsonDoubanAction.json";
+		 
+		 // -- 本地请求地址（将servlet 请求的 top250 数据另存在本地, 不跨站, 便于本地调试）
+		 var url = "JsonDoubanAction.json"; //文件请求
+		 // -- 远程请求地址 Servlet 请求
+		 // ---- 相对链接便于在 tomcat servlet 中使用
+		 url = "../JsonDoubanAction"; //servlet 请求
+		 // ---- 绝对链接便于在 atom-live-server localhost:3000 端口中调试
+		 // 需要在servlet 中添加头以放开限制 response.addHeader("Access-Control-Allow-Origin", "*");
+		 url = "http://localhost:8080/ShiyanlouPhoto/JsonDoubanAction";
+		 
 		 //.getJSON() 相当于简写的 .ajax()
-		 $.getJSON(url, function(data) {
+		 //.getJSON() 参考文档: http://www.css88.com/jqapi-1.9/jQuery.getJSON/
+		 
+		 $.getJSON(url, parse_data); 
+		 function parse_data(data){ 
+		 // 上面2句的写法与下面这1句相同, 相当于定义使用一个有名函数而不是像json1中的匿名函数:	 
+		 //$.getJSON(url, function(data) {
 		 			var tbl_body = "";
 		 			var odd_even = false;
 					var count = 0;
-		 			// $.each(data, function() { // 从对象遍历到数组遍历
+		 			// $.each(data, function() { // 因 json 数据格式变化, 从json1的对象遍历到json2数组遍历
 		 		  for (var i = 0; i< data.length; i++) {
 					var tbl_row = "";
 		 				//$.each(this, function(k, v) {
@@ -74,7 +58,8 @@
 					}
 
 		 			$("#news tbody").html(tbl_body);
-		 		});
+		 		}
+		 		// ); //-使用匿名函数, 需要去掉这里的注释
 	</script>
 
 </html>

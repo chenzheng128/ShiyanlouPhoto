@@ -38,6 +38,9 @@ public class JsonDoubanAction extends HttpServlet {
 		// top250
 		JSONObject json = JsonReader.readJsonFromUrl("http://api.douban.com/v2/movie/top250");
 		
+		//放开限制避免 No 'Access-Control-Allow-Origin' header is present 错误
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		
 		response.setCharacterEncoding("Utf-8");
         response.setContentType("text/json;charset=UTF-8");
         PrintWriter out = response.getWriter();
