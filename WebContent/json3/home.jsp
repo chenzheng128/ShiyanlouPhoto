@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.shiyanlou.photo.domain.Image,org.json.*, com.shiyanlou.photo.util.*"%>
+<!-- 请注意上面的 import 语句 , 用逗号分隔 -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
+
+// From OrgJsonTest.java BuildJson() 测试代码 
 Image image  = new Image();
 image.setId(1);
 image.setName("a image");
@@ -25,13 +28,15 @@ image.setUrl("http://myimage.com/img.png");
 <body>
 	<h1>这是一个 BuildJson 测试文件</h1>
 	<%
-		out.println("hello");
+		out.println("hello2");
 	
 	// 将Javabean转换为Json数据（需要Map中转）
     JSONObject jo1 = OrgJsonHelper.toJSON(image);
 
     out.println("\n仅含Image对象的Json数据格式：");
     out.println(jo1.toString());
+    
+    System.out.println(jo1.toString());
 	%>
 </body>
 </html>
