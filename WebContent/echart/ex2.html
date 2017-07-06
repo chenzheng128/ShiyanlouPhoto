@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <!-- 引入 ECharts 文件 -->
+  <script src="https://cdn.bootcss.com/echarts/3.6.2/echarts.min.js"></script>
+</head>
+
+<h2>
+  `ex2.html` UCG 雷达图
+  http://gallery.echartsjs.com/editor.html?c=xSyBqEr6Z
+</h2>
+
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+
+<div id="main" style="width: 600px;height:400px;"></div>
+<script type="text/javascript">
+  // 基于准备好的dom，初始化echarts实例
+  var myChart = echarts.init(document.getElementById('main'));
+
+  // 指定图表的配置项和数据
+  var option = {
+    title: {
+      text: '雷达图'
+    },
+    tooltip: {},
+    legend: {
+      top: 20,
+      itemWidth: 12,
+      itemHeight: 12,
+      data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）'],
+      textStyle: {
+        color: '#fff'
+      }
+    },
+    radar: {
+      radius: '60%',
+      splitNumber: 8,
+      axisLine: {
+        lineStyle: {
+          color: '#fff',
+          opacity: .2
+        }
+      },
+      splitLine: {
+        lineStyle: {
+          color: '#fff',
+          opacity: .2
+        }
+      },
+      splitArea: {
+        areaStyle: {
+          color: 'rgba(127,95,132,.3)',
+          opacity: 1,
+          shadowBlur: 45,
+          shadowColor: 'rgba(0,0,0,.5)',
+          shadowOffsetX: 0,
+          shadowOffsetY: 15,
+        }
+      },
+      indicator: [{
+        name: 'Sales',
+        max: 30000
+      }, {
+        name: 'Administration',
+        max: 30000
+      }, {
+        name: 'Information Techology',
+        max: 30000
+      }, {
+        name: 'Customer Support',
+        max: 30000
+      }, {
+        name: 'Development',
+        max: 30000
+      }, {
+        name: 'Marketing',
+        max: 30000
+      }]
+    },
+    series: [{
+      name: '预算 vs 开销（Budget vs spending）',
+      type: 'radar',
+      symbolSize: 0,
+      areaStyle: {
+        normal: {
+          shadowBlur: 13,
+          shadowColor: 'rgba(0,0,0,.2)',
+          shadowOffsetX: 0,
+          shadowOffsetY: 10,
+          opacity: 1
+        }
+      },
+      data: [{
+        value: [15000, 17000, 12000, 11000, 15000, 14000],
+        name: '预算分配（Allocated Budget）',
+      }, {
+        value: [12400, 12000, 8000, 8500, 12000, 12000],
+        name: '实际开销（Actual Spending）',
+      }]
+    }],
+    color: ['#ef4b4c', '#b1eadb'],
+    backgroundColor: {
+      type: 'radial',
+      x: 0.4,
+      y: 0.4,
+      r: 0.35,
+      colorStops: [{
+        offset: 0,
+        color: '#895355' // 0% 处的颜色
+      }, {
+        offset: .4,
+        color: '#593640' // 100% 处的颜色
+      }, {
+        offset: 1,
+        color: '#39273d' // 100% 处的颜色
+      }],
+      globalCoord: false // 缺省为 false
+    }
+  };
+
+  // 使用刚指定的配置项和数据显示图表。
+  myChart.setOption(option);
+</script>
+
+</html>
