@@ -1,0 +1,27 @@
+<html>
+
+<body>
+
+<script src="https://unpkg.com/vue"></script>
+
+<h2> 整数循环与JSON数组 https://cn.vuejs.org/v2/guide/list.html#整数迭代-v-for </h2>
+
+
+<ul id="example-1">
+  <li v-for="n in 3">
+     模板语句: {{n}} <a href> 可以插入你希望的内容</a> {{testdata[n-1]}}
+  </li>
+</ul>
+
+<script>
+// script 脚本执行要在 <ul id="example-1"> 标签定义后, 否则会报错误找不到 example-1
+
+var example1 = new Vue({
+  el: '#example-1',
+  data: {
+    testdata: ["test1", "test2", "test3"],
+  }
+})
+</script>
+
+</body></html>

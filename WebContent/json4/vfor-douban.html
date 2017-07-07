@@ -1,0 +1,44 @@
+<html>
+
+<body>
+
+<script src="https://unpkg.com/vue"></script>
+
+<!-- 还是使用 jquery 发起ajax json请求 -->
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+
+<h2> https://cn.vuejs.org/v2/guide/list.html#整数迭代-v-for </h2>
+
+
+<ul id="example-1">
+  <li v-for="n in 3">
+     模板语句: {{n}} <a href> 可以插入你希望的内容</a>  获取到 {{len}} 条数据
+  </li>
+</ul>
+
+<script>
+// script 脚本执行要在 <ul id="example-1"> 标签定义后, 否则会报错误找不到 example-1
+
+
+var MYDATA = {} //定义全局变量 MYDATA
+
+//还是使用 jquery 发起ajax json请求
+// 从 json2/复制的getJSON脚本
+url = "../json2/JsonDoubanAction.json";
+
+$.getJSON(url, parse_data);
+function parse_data(doubanjson){
+
+  MYDATA = doubanjson; //将数据复制到全局变量 mydata 中, 便于在console中调试
+  console.log(doubanjson)
+
+  var example1 = new Vue({
+    el: '#example-1',
+    data: {
+      len: MYDATA.length
+    }
+  })
+}
+</script>
+
+</body></html>

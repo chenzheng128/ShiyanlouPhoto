@@ -1,0 +1,71 @@
+<html>
+
+<body>
+
+  <script src="https://unpkg.com/vue"></script>
+
+  <!-- 还是使用 jquery 发起ajax json请求 -->
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+
+  <h2> 豆瓣API渲染模板  https://cn.vuejs.org/v2/guide/list.html#Template-v-for  </h2>
+
+
+  <ul id="example-1">
+    <li>获取到 {{len}} 条数据</li>
+    <table>
+
+      <template v-for="n in len">  <!--采用 template 模板进行群体渲染下面的所有内容 -->
+      <tr>
+      <td>
+        <!-- 在html属性中的嵌入, 需要使用另外一种语法 :id="val" , 否则不能正常运行-->
+        <img :src="images[n-1]"> </td>
+      <td>
+         <a href>  第 {{n}} 位 {{ titles[n-1] }}  </a> </td>
+    </tr>
+    </template>
+
+    </table>
+
+  </ul>
+  <!-- 注意 id="example-1" 的覆盖范围 -->
+
+  <script>
+    // script 脚本执行要在 <ul id="example-1"> 标签定义后, 否则会报错误找不到 example-1
+
+
+    var MYDATA = {} //定义全局变量 MYDATA
+
+    //还是使用 jquery 发起ajax json请求
+    // 从 json2/复制的getJSON脚本
+    url = "../json2/JsonDoubanAction.json";
+
+    $.getJSON(url, parse_data);
+
+    function parse_data(doubanjson) {
+
+      MYDATA = doubanjson; //将数据复制到全局变量 mydata 中, 便于在console中调试
+      console.log(doubanjson)
+
+      // 从 MYDATA 提取
+      var titles = []
+      var images = []
+      for (var i = 0; i < MYDATA.length; i++) {
+        titles[i] = MYDATA[i].original_title;
+        images[i] = MYDATA[i].images.small;
+      }
+
+      // 使用  vue 绑定模板
+      var example1 = new Vue({
+        el: '#example-1',
+        data: {
+          len: MYDATA.length,
+          titles: titles,
+          images: images,
+        }
+      })
+    }
+  </script>
+
+</body>
+
+</html>
