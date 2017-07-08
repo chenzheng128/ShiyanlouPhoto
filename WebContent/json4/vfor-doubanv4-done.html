@@ -7,7 +7,7 @@
   <!-- 还是使用 jquery 发起ajax json请求 -->
   <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 
-  <h2> 豆瓣API例子 渲染template模板  https://cn.vuejs.org/v2/guide/list.html#Template-v-for  </h2>
+  <h2> 豆瓣API例子 - 事件处理  https://cn.vuejs.org/v2/guide/events.html </h2>
 
 
   <ul id="example-1">
@@ -21,6 +21,10 @@
         <img :src="images[n-1]"> </td>
       <td>
          <a href>  第 {{n}} 位 {{ titles[n-1] }}  </a> </td>
+      <td><p> 这个电影被like了 {{ likes[n-1] }} 次。</p>  </td> <td> 
+        <button v-on:click="doLike(n-1)"> like</button>
+      
+        <a v-on:click="doDel(n-1)" src="">删</a> </td>
     </tr>
     </template>
 
@@ -49,9 +53,11 @@
       // 从 MYDATA 提取
       var titles = []
       var images = []
+      var likes = []
       for (var i = 0; i < MYDATA.length; i++) {
         titles[i] = MYDATA[i].original_title;
         images[i] = MYDATA[i].images.small;
+        likes[i] = 20;
       }
 
       // 使用  vue 绑定模板
@@ -61,9 +67,47 @@
           len: MYDATA.length,
           titles: titles,
           images: images,
-        }
+          likes: likes,
+        },
+        
+        methods: {
+          doLike: function (idx) {
+            // https://cn.vuejs.org/v2/guide/list.html#注意事项
+            // 因为 javascript 的限制, 数组更新必须需要用 Vue.set 才能正常绑定
+            //this.likes[2] +=1 // 这个语句不会更新
+            Vue.set(this.likes, idx, this.likes[idx]+1);
+            doRestLike(idx);
+          },
+          doDel: function (idx) {
+            if (confirm("确认删我吗? " + idx)){
+              doRestDelete(idx);
+            }
+          }
+        } 
       })
     }
+    
+    
+    function doRestLike(idx){
+      $.ajax({
+      url: '/just_fake_test/douban/movie/api.jsp?id='+idx,
+      type: 'GET',
+      data: {},
+      success: function(result) {// Do something with the result
+      },
+    })
+    }
+    
+    function doRestDelete(idx){
+      $.ajax({
+      url: '/just_fake_test/douban/movie/'+idx,
+      type: 'DELETE',
+      data: {},
+      success: function(result) {// Do something with the result
+      },
+    })
+    }
+
   </script>
 
 </body>

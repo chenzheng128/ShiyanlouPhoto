@@ -1,0 +1,27 @@
+<html>
+
+<body>
+
+  <script src="https://unpkg.com/vue"></script>
+
+  <h2> 事件处理  https://cn.vuejs.org/v2/guide/events.html </h2>
+
+  
+  <div id="example-1">
+    <button v-on:click="counter += 1">增加 1</button>
+    <p>这个按钮被点击了 {{ counter }} 次。</p>
+  </div>
+
+  <script>
+    // script 脚本执行要在 <ul id="example-1"> 标签定义后, 否则会报错误找不到 example-1
+    var example1 = new Vue({
+      el: '#example-1', //需要对应至 <div id="example-1">
+      data: {
+        counter: 1 ,
+      }
+    })
+  </script>
+
+</body>
+
+</html>

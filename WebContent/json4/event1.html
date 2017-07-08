@@ -1,0 +1,32 @@
+<html>
+
+<body>
+
+  <script src="https://unpkg.com/vue"></script>
+
+  <h2> 事件处理-函数  https://cn.vuejs.org/v2/guide/events.html#方法事件处理器 </h2>
+
+  
+  <div id="example-1">
+    <button v-on:click="add">增加 1</button>
+    <p>这个按钮被点击了 {{ counter }} 次。</p>
+  </div>
+
+  <script>
+    // script 脚本执行要在 <ul id="example-1"> 标签定义后, 否则会报错误找不到 example-1
+    var example1 = new Vue({
+      el: '#example-1', //需要对应至 <div id="example-1">
+      data: {
+        counter: 1 ,  // 初始计数器
+      },
+      methods: {
+        add: function (event) {
+        this.counter +=1;  // data中的 counter 对象需要附加 this. 进行访问
+        }
+      } 
+    })
+  </script>
+
+</body>
+
+</html>

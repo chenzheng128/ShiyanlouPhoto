@@ -7,20 +7,31 @@
   <!-- 还是使用 jquery 发起ajax json请求 -->
   <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 
-  <h2> 豆瓣API渲染数据 https://cn.vuejs.org/v2/guide/events.html#监听事件 </h2>
+  <h2> 豆瓣API例子 - 事件处理  https://cn.vuejs.org/v2/guide/events.html </h2>
 
 
   <ul id="example-1">
     <li>获取到 {{len}} 条数据</li>
-    <ul>
-      <li v-for="n in len">
+    <table>
 
+      <template v-for="n in len">  <!--采用 template 模板进行群体渲染下面的所有内容 -->
+      <tr>
+      <td>
         <!-- 在html属性中的嵌入, 需要使用另外一种语法 :id="val" , 否则不能正常运行-->
-        html元素属性示例: 图片: <img :src="images[n-1]"> " html元素内容示例: {{n}} <a href> {{ titles[n-1] }} </a>
+        <img :src="images[n-1]"> </td>
+      <td>
+         <a href>  第 {{n}} 位 {{ titles[n-1] }}  </a> </td>
+      <td><p> 这个电影被like了 {{ likes[n-1] }} 次。</p>  </td> <td> 
+        <button v-on:click="doLike"> like</button>
+      
+        <a v-on:click="doDel" src="">删</a> </td>
+    </tr>
+    </template>
 
-      </li>
-    </ul>
+    </table>
+
   </ul>
+  <!-- 注意 id="example-1" 的覆盖范围 -->
 
   <script>
     // script 脚本执行要在 <ul id="example-1"> 标签定义后, 否则会报错误找不到 example-1
@@ -42,9 +53,11 @@
       // 从 MYDATA 提取
       var titles = []
       var images = []
+      var likes = []
       for (var i = 0; i < MYDATA.length; i++) {
         titles[i] = MYDATA[i].original_title;
         images[i] = MYDATA[i].images.small;
+        likes[i] = 20;
       }
 
       // 使用  vue 绑定模板
@@ -54,7 +67,20 @@
           len: MYDATA.length,
           titles: titles,
           images: images,
-        }
+          likes: likes,
+        },
+        
+        methods: {
+          doLike: function () {
+            // https://cn.vuejs.org/v2/guide/list.html#注意事项
+            // 因为 javascript 的限制, 数组更新必须需要用 Vue.set 才能正常绑定
+            //this.likes[2] +=1 // 这个语句不会更新
+            Vue.set(this.likes, 1, this.likes[1]+1)
+          },
+          doDel: function () {
+          
+          }
+        } 
       })
     }
   </script>

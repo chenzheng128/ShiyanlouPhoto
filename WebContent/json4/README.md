@@ -9,3 +9,4 @@
 * `vfor-douban.html`  豆瓣API  v1 开始
 * `vfor-doubanv2.html` 豆瓣API v2 渲染数据
 * `vfor-doubanv3.html` 豆瓣API v3 渲染模板
+* `vfor-doubanv4.html` 豆瓣API v4 豆瓣API例子 - 赞一个  
