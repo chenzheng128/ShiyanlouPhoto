@@ -2,6 +2,8 @@
 
 官方教程: https://cn.vuejs.org/v2/guide/
 
+访问方法：启动 atom live server 或 tomcat server 直接访问目录中的 html 文件
+
 * `01-helloword.html` HelloWorld的模板调用 https://cn.vuejs.org/v2/guide/
 * `vfor1-obj.html` 对象循环 https://cn.vuejs.org/v2/guide/list.html#对象迭代-v-for
 * `vfor2-range.html` 整数循环 https://cn.vuejs.org/v2/guide/list.html#整数迭代-v-for

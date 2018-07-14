@@ -37,4 +37,13 @@ public class UserService {
         String[][] parameters = {{user.getUsername(), user.getPassword()}};
         DBUtils.updates(sqls, parameters);
     }
+    
+    public static void main(String argv[]){
+    	
+    	User u = new User();
+    	u.setId(10); u.setPassword("abc"); u.setPassword("abc");
+    	UserService us = new UserService();
+    	us.addUser(u);
+    	System.out.println(" add user success !!");
+    }
 }
