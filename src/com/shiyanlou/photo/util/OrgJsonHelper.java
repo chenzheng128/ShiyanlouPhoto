@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -89,6 +90,11 @@ public class OrgJsonHelper {
 
         return new JSONObject(toMap(bean));
 
+    }
+    
+    public static JSONArray toJSON(Object[] beans) {
+    	// TODO 等高手完成他
+    	return null;
     }
 
     /**

@@ -3,8 +3,8 @@
 * Web `WebContent`
   - `index.jsp home.jsp` 图片管理JSP页面
   - `json1/` 增加网易新闻json示例: http://localhost:8080/ShiyanlouPhoto/json1/
-  - `json2/` 增加豆瓣电影json示例: http://localhost:8080/ShiyanlouPhoto/json2/
-  - `json3/`
+  - `json2/` 增加豆瓣电影json示例: http://localhost:8080/ShiyanlouPhoto/json2/ Web 前端的 JSON 对象处理和解析 
+  - `json3/`  Java后端 JSON 对象处理和解析  
     - home.jsp 使用 java buildJson() 转换 Image 对象示例
     - api.jsp 使用 jsp 模仿 servlet api
   - `json4/` : Vue.js 示范 (豆瓣API集成)
