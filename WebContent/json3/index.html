@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+
+	<h2>从json生成页面</h2>
+
+
+	<body>
+		<p>获取到了json数据（远程API 或 本地 xxx.json）, 使用jQeury生成了HTML表格页面进行展示</p>
+
+		如果从远端API 接口加载数据, 其加载时间会稍慢一些, 约2-4秒之间
+		
+		
+		输入框1: <input id='indata1' ><br>
+		输入框2: <input id='indata2' ><br>
+		
+		<br>
+		表格：
+		<table id="news" border="1">
+			<tbody></tbody>
+		</table>
+		<br>
+		
+		段落： <p id="pdata" > </p>
+		<br>
+	
+		
+		超链接 <a id='adata'> </a> <br>
+		
+		图片: <img id='imgdata'> <br>
+		 
+	</body>
+	<script>
+		 
+		 // -- 本地请求地址（将servlet 请求的 top250 数据另存在本地, 不跨站, 便于本地调试）
+		 var url = "JsonDoubanAction.json"; //文件请求
+		 // -- 远程请求地址 Servlet 请求
+		 // ---- 相对链接便于在 tomcat servlet 中使用
+		 url = "../JsonDoubanAction"; //servlet 请求
+		 // ---- 绝对链接便于在 atom-live-server localhost:3000 端口中调试
+		 // 需要在servlet 中添加头以放开限制 response.addHeader("Access-Control-Allow-Origin", "*");
+		 url = "http://localhost:8080/ShiyanlouPhoto/JsonDoubanAction";
+		 
+		 url = "http://localhost:8080/ShiyanlouPhoto/json3/api.jsp"
+		 
+		 //.getJSON() 相当于简写的 .ajax()
+		 //.getJSON() 参考文档: http://www.css88.com/jqapi-1.9/jQuery.getJSON/
+		 
+		 if (confirm("是否要加载 后端的JSON数据")){
+		 	$.getJSON(url, parse_data);
+		 }
+		 
+		 console.log(" get data done ");
+		 
+		 function parse_data(data){ 
+		 // 上面2句的写法与下面这1句相同, 相当于定义使用一个有名函数而不是像json1中的匿名函数:	 
+		 //$.getJSON(url, function(data) {
+
+			 		$("#indata1").val(data)
+					$("#indata2").val(data.name)
+					
+			 		// 将 JSON 对象转换为字符串进行输出
+		 			$("#news tbody").html(JSON.stringify(data));
+					
+					$("#pdata").html(JSON.stringify(data));
+					console.log(data);
+					
+					// 使用JSON链接改变 a 与 img 
+					$("#adata").html(data.name)
+					$("#adata").attr("href", data.url)
+					
+					$("#imgdata").attr("src", data.url)
+					
+					console.log(" load data done ");
+		 			
+		 		}
+		 		// ); //-使用匿名函数, 需要去掉这里的注释
+	</script>
+
+</html>
